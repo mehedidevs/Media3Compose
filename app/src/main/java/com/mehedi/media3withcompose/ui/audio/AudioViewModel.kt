@@ -1,4 +1,4 @@
-package com.mehedi.media3withcompose.ui.theme.audio
+package com.mehedi.media3withcompose.ui.audio
 
 import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -101,8 +101,20 @@ class AudioViewModel @Inject constructor(
                 )
 
                 UIEvents.SeekToNext -> audioServiceHandler.onPlayerEvents(PlayerEvent.SeekToNext)
-                is UIEvents.SelectedAudioChange -> TODO()
-                is UIEvents.UpdateProgress -> TODO()
+                is UIEvents.SelectedAudioChange -> {
+                    audioServiceHandler.onPlayerEvents(
+                        PlayerEvent.SelectedAudioChange,
+                        selectedAudioIndex = uiEvents.index
+                    )
+
+                }
+
+                is UIEvents.UpdateProgress -> {
+                    audioServiceHandler.onPlayerEvents(
+                        PlayerEvent.UpdateProgress(uiEvents.newProgress)
+                    )
+
+                }
             }
 
 
@@ -153,18 +165,18 @@ class AudioViewModel @Inject constructor(
 }
 
 sealed class UIEvents {
-    data object PlayPause : UIEvents()
+     object PlayPause : UIEvents()
     data class SelectedAudioChange(val index: Int) : UIEvents()
     data class SeekTo(val position: Int) : UIEvents()
-    data object SeekToNext : UIEvents()
-    data object Backward : UIEvents()
-    data object Forward : UIEvents()
+     object SeekToNext : UIEvents()
+     object Backward : UIEvents()
+     object Forward : UIEvents()
     data class UpdateProgress(val newProgress: Float) : UIEvents()
 }
 
 sealed class UIState {
 
-    data object Initial : UIState()
-    data object Ready : UIState()
+     object Initial : UIState()
+     object Ready : UIState()
 
 }

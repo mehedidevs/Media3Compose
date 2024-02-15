@@ -138,18 +138,18 @@ class JetAudioServiceHandler @Inject constructor(
 }
 
 sealed class PlayerEvent {
-    data object PlayPause : PlayerEvent()
-    data object SelectedAudioChange : PlayerEvent()
-    data object Backward : PlayerEvent()
-    data object Forward : PlayerEvent()
-    data object SeekTo : PlayerEvent()
-    data object SeekToNext : PlayerEvent()
-    data object Stop : PlayerEvent()
+     object PlayPause : PlayerEvent()
+     object SelectedAudioChange : PlayerEvent()
+     object Backward : PlayerEvent()
+     object Forward : PlayerEvent()
+     object SeekTo : PlayerEvent()
+     object SeekToNext : PlayerEvent()
+     object Stop : PlayerEvent()
     data class UpdateProgress(val newProgress: Float) : PlayerEvent()
 }
 
 sealed class JetAudioState {
-    data object Initial : JetAudioState()
+     object Initial : JetAudioState()
     data class Ready(val duration: Long) : JetAudioState()
     data class Progress(val progress: Long) : JetAudioState()
     data class Buffering(val progress: Long) : JetAudioState()
